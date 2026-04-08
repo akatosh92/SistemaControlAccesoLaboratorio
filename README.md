@@ -33,13 +33,36 @@ El proyecto fue desarrollado utilizando una arquitectura por capas para mantener
 
 El sistema utiliza una arquitectura por capas:
 
-Presentacion
-↓
-LogicaNegocio
-↓
-AccesoDatos
-↓
-Archivos TXT
++----------------------+
+|     PRESENTACIÓN     |
+|----------------------|
+| Main.java            |
+| Menu.java            |
++----------+-----------+
+           |
+           v
++----------------------+
+|   LÓGICA DE NEGOCIO  |
+|----------------------|
+| UsuarioServicio.java |
+| AccesoServicio.java  |
++----------+-----------+
+           |
+           v
++----------------------+
+|    ACCESO A DATOS    |
+|----------------------|
+| UsuarioDAO.java      |
+| AccesoDAO.java       |
++----------+-----------+
+           |
+           v
++----------------------+
+|     PERSISTENCIA     |
+|----------------------|
+| usuarios.txt         |
+| accesos.txt          |
++----------------------+
 
 ### Capas del sistema
 
