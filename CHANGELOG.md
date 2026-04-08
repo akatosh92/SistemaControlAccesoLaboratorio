@@ -1,5 +1,9 @@
 # Changelog
 
+## v1.3 - Validaciones y pruebas
+
+- Implementacion de capa de presentacion con menu interactivo.
+
 ## v1.2 - Logica de negocio
 
 - Implementacion de logica de negocio y validaciones de acceso.
