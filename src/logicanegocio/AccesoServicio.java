@@ -1,7 +1,9 @@
 package logicanegocio;
 
 import accesodatos.AccesoDAO;
+import accesodatos.UsuarioDAO;
 import entidades.Acceso;
+import entidades.Usuario;
 
 import java.io.IOException;
 import java.time.Duration;
@@ -19,10 +21,32 @@ public class AccesoServicio {
 
     public void registrarEntrada(String idUsuario) throws Exception {
 
+        if (idUsuario == null || idUsuario.trim().isEmpty()) {
+            throw new Exception("ID de usuario inválido");
+        }
+
+        idUsuario = idUsuario.trim();
+
+        UsuarioDAO usuarioDAO = new UsuarioDAO();
+        List<Usuario> usuarios = usuarioDAO.obtenerUsuarios();
+
+        boolean existe = false;
+
+        for (Usuario u : usuarios) {
+            if (u.getId().equalsIgnoreCase(idUsuario)) {
+                existe = true;
+                break;
+            }
+        }
+
+        if (!existe) {
+            throw new Exception("El usuario no existe");
+        }
+
         List<Acceso> accesos = accesoDAO.obtenerAccesos();
 
         for (Acceso a : accesos) {
-            if (a.getIdUsuario().equals(idUsuario) && a.getFechaSalida() == null) {
+            if (a.getIdUsuario().equalsIgnoreCase(idUsuario) && a.getFechaSalida() == null) {
                 throw new Exception("El usuario ya está dentro del laboratorio");
             }
         }
@@ -38,13 +62,19 @@ public class AccesoServicio {
 
     public void registrarSalida(String idUsuario) throws Exception {
 
+        if (idUsuario == null || idUsuario.trim().isEmpty()) {
+            throw new Exception("ID de usuario inválido");
+        }
+
+        idUsuario = idUsuario.trim();
+
         List<Acceso> accesos = accesoDAO.obtenerAccesos();
 
         boolean encontrado = false;
 
         for (Acceso a : accesos) {
 
-            if (a.getIdUsuario().equals(idUsuario) && a.getFechaSalida() == null) {
+            if (a.getIdUsuario().equalsIgnoreCase(idUsuario) && a.getFechaSalida() == null) {
 
                 a.setFechaSalida(LocalDateTime.now());
                 encontrado = true;
@@ -87,7 +117,7 @@ public class AccesoServicio {
 
         for (Acceso a : accesos) {
 
-            if (a.getIdUsuario().equals(idUsuario)) {
+            if (a.getIdUsuario().equalsIgnoreCase(idUsuario)) {
                 resultado.add(a);
             }
         }

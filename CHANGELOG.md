@@ -1,5 +1,9 @@
 # Changelog
 
+## v1.5 - Correcciones de validacion y accesos
+
+- Validaciones de rol, entradas vacias y verificacion de usuario en accesos.
+
 ## v1.4 - Correcciones de validacion
 
 - Mejoras en validacion de entrada y manejo de errores.
