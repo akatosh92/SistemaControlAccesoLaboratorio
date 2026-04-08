@@ -1,5 +1,9 @@
 # Changelog
 
+## v1.4 - Correcciones de validacion
+
+- Mejoras en validacion de entrada y manejo de errores.
+
 ## v1.3 - Validaciones y pruebas
 
 - Implementacion de capa de presentacion con menu interactivo.

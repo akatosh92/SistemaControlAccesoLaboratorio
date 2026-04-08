@@ -10,9 +10,9 @@ import java.util.Scanner;
 
 public class Menu {
 
-    private Scanner sc;
-    private UsuarioServicio usuarioServicio;
-    private AccesoServicio accesoServicio;
+    private final Scanner sc;
+    private final UsuarioServicio usuarioServicio;
+    private final AccesoServicio accesoServicio;
 
     public Menu() {
         sc = new Scanner(System.in);
@@ -37,7 +37,13 @@ public class Menu {
             System.out.println("0. Salir");
 
             System.out.print("Seleccione una opción: ");
-            opcion = Integer.parseInt(sc.nextLine());
+
+            try {
+                opcion = Integer.parseInt(sc.nextLine());
+            } catch (NumberFormatException e) {
+                System.out.println("Debe ingresar un número válido.");
+                continue;
+            }
 
             try {
 
@@ -50,6 +56,8 @@ public class Menu {
                     case 5 -> registrarSalida();
                     case 6 -> historialUsuario();
                     case 7 -> tiempoTotal();
+                    case 0 -> System.out.println("Saliendo del sistema...");
+                    default -> System.out.println("Opción inválida");
 
                 }
 
@@ -81,6 +89,13 @@ public class Menu {
 
         List<Usuario> usuarios = usuarioServicio.consultarUsuarios();
 
+        if (usuarios.isEmpty()) {
+            System.out.println("No hay usuarios registrados.");
+            return;
+        }
+
+        System.out.println("\nLISTA DE USUARIOS:");
+
         for (Usuario u : usuarios) {
 
             System.out.println(
@@ -99,7 +114,7 @@ public class Menu {
 
         usuarioServicio.eliminarUsuario(id);
 
-        System.out.println("Usuario eliminado");
+        System.out.println("Usuario eliminado correctamente");
     }
 
     private void registrarEntrada() throws Exception {
@@ -109,7 +124,7 @@ public class Menu {
 
         accesoServicio.registrarEntrada(id);
 
-        System.out.println("Entrada registrada");
+        System.out.println("Entrada registrada correctamente");
     }
 
     private void registrarSalida() throws Exception {
@@ -119,7 +134,7 @@ public class Menu {
 
         accesoServicio.registrarSalida(id);
 
-        System.out.println("Salida registrada");
+        System.out.println("Salida registrada correctamente");
     }
 
     private void historialUsuario() throws Exception {
@@ -128,6 +143,13 @@ public class Menu {
         String id = sc.nextLine();
 
         List<Acceso> accesos = accesoServicio.historialUsuario(id);
+
+        if (accesos.isEmpty()) {
+            System.out.println("No hay accesos registrados para este usuario.");
+            return;
+        }
+
+        System.out.println("\nHISTORIAL DE ACCESOS:");
 
         for (Acceso a : accesos) {
 
